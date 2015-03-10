@@ -80,3 +80,11 @@
   then .7
      (identity organism is streptococcus))
 
+;; example rule for us 
+
+;;(defrule 10
+;;  if (prev-taken student fulfills (prereqs course))
+;;     (availabe course is yes)
+;;     (courses-required student contains course)
+;;  then 1
+;;     (reccomended course is (name course))

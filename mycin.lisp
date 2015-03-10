@@ -232,6 +232,7 @@
       (parse-condition condition)
     (when find-out-p
       (find-out parm inst))
+;;      (find-out val inst)) call eval
     ;; Add up all the (val cf) pairs that satisfy the test
     (loop for pair in (get-vals parm inst)
           when (funcall op (first pair) val)
@@ -249,6 +250,10 @@
     (update-cf parm inst val cf)))
 
 (defun is (a b) (equal a b))
+
+(defun fufills (prev-taken prereqs) 
+  ;; true iff prereqs is a subset of prev-take
+)
 
 (defun parse-condition (condition)
   "A condition is of the form (parm inst op val).
