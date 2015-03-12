@@ -9,6 +9,17 @@
 (defconstant false  -1.0)
 (defconstant unknown 0.0)
 
+;; (defun mytypep (var typespec)
+;;   (if (equal typespec 'list-of-classes)
+;;       (check-list-of-classes var)
+;;     (typep var typespec)))
+
+;; (defun check-list-of-classes (var) 
+;;   (if (not var)
+;;       t
+;;     (and (not (null (get-db (car var))))
+;; 	 (check-list-of-classes (cdr var)))))
+
 (defun cf-or (a b)
   "Combine the certainty factors for the formula (A or B).
   This is used when two rules support the same conclusion."
@@ -42,6 +53,11 @@
   (defun get-db (key) (gethash key db))
   (defun put-db (key val) (setf (gethash key db) val))
   (defun clear-db () (clrhash db)))
+
+;;(let ((class-db (make-hash-table :test #'equal)))
+;;  (defun get-class-db (key) (gethash key db))
+;;  (defun put-class-db (key val) (setf (gethash key db) val))
+;;  (defun clear-class-db () (clrhash db)))
 
 (defun get-vals (parm inst)
   "Return a list of (val cf) pairs for this (parm inst)."
@@ -235,9 +251,15 @@
 ;;      (find-out val inst)) call eval
     ;; Add up all the (val cf) pairs that satisfy the test
     (loop for pair in (get-vals parm inst)
-          when (funcall op (first pair) val)
+          when (funcall op (first pair) (eval-val val))
           sum (second pair))))
                
+(defun eval-val (val) 
+;; allows us to evaluate values for the 4th param of conditions
+  (if (not (listp val)) 
+      val
+    (eval val)))
+
 (defun reject-premise (premise)
   "A premise is rejected if it is known false, without
   needing to call find-out recursively."
@@ -393,7 +415,7 @@
 (defun mycin ()
   "Determine what organism is infecting a patient."
   (emycin
-    (list (defcontext patient  (name sex age)  ())
-          (defcontext culture  (site days-old) ())
-          (defcontext organism ()              (identity)))))
+    (list (defcontext student (name class-year prev-take)  ())
+)))
+;;          (defcontext organism ()              (identity)))))
 
