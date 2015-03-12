@@ -9,6 +9,14 @@
 ;;; Parameters for patient:
 (defparm name student t "Student's name: " t read-line)
 (defparm class-year student (member freshman sophomore junior senior) "Class year of ~a:" t)
+
+
+;;---
+;; This now needs to be created here programmatically for each class...
+;;---
+
+(defparm cname cs110 t "Cs110's name: " t read-line)
+(defparm pre-reqs cs110 t "Requirements to take  ~a:" t read-line)
 ;;(defparm prev-taken student list-of-classes "What CS courses has ~a taken? format: (cs-xxx)" read-line)
 
 
@@ -16,7 +24,7 @@
 ;; (defparm site culture (member blood)
 ;;   "From what site was the specimen for ~a taken?" t)
 ;; (defparm days-old culture number
-;;   "How many days ago was this culture (~a) obtained?" t)
+;;   "How many days ago was this culture (~a) obtained?" t)1
 
 ;; ;;; Parameters for organism:
 ;; (defparm identity organism
@@ -97,7 +105,7 @@
 (put-db 'cs-340 '((operating system) (cs-240) (yes)))
 (put-db 'cs-350 '((database theory and practice) (cs-111) (yes)))
 (put-db 'cs-375 '((artificial intelligence) (cs-220) (yes)))
-(put-db 'cs-410 '((senior seminar) (cs-210 cs-220 cs-240 senior) (yes)))
+(put-db 'cs-410 '((senior seminar) (cs-210 cs-220 cs-240 senior) (yes)))1
 
 ;; (defun generate-possible-courses-taken (titles)
 ;;   (if (not titles) 

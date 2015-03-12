@@ -52,7 +52,8 @@
 (let ((db (make-hash-table :test #'equal)))
   (defun get-db (key) (gethash key db))
   (defun put-db (key val) (setf (gethash key db) val))
-  (defun clear-db () (clrhash db)))
+  (defun clear-db () (clrhash db))
+(defun print-db () (princ db)))
 
 ;;(let ((class-db (make-hash-table :test #'equal)))
 ;;  (defun get-class-db (key) (gethash key db))
@@ -415,7 +416,10 @@
 (defun mycin ()
   "Determine what organism is infecting a patient."
   (emycin
-    (list (defcontext student (name class-year prev-take)  ())
+    (list
+     (defcontext cs110 (cname pre-reqs)  ()) 
+     (defcontext student (name class-year)  ())
+	
 )))
 ;;          (defcontext organism ()              (identity)))))
 
