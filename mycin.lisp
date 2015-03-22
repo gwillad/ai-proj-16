@@ -4,7 +4,6 @@
 
 ;;;; File mycin.lisp: Chapter 16's implementation of MYCIN.
 ;;;; A sample rulebase is provided in "mycin-rules.lisp".
-
 (defconstant true   +1.0)
 (defconstant false  -1.0)
 (defconstant unknown 0.0)
@@ -417,9 +416,9 @@
   "Determine what organism is infecting a patient."
   (emycin
     (list
-     (defcontext cs110 (cname pre-reqs)  ()) 
+
      (defcontext student (name class-year)  ())
-	
+     (defcontext taken_course (class_name)  ()) 	
 )))
 ;;          (defcontext organism ()              (identity)))))
 

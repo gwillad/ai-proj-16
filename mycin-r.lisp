@@ -1,3 +1,6 @@
+
+
+
 ;;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
 ;;;; Code from Paradigms of AI Programming
 ;;;; Copyright (c) 1991 Peter Norvig
@@ -10,13 +13,15 @@
 (defparm name student t "Student's name: " t read-line)
 (defparm class-year student (member freshman sophomore junior senior) "Class year of ~a:" t)
 
-
 ;;---
 ;; This now needs to be created here programmatically for each class...
 ;;---
 
-(defparm cname cs110 t "Cs110's name: " t read-line)
-(defparm pre-reqs cs110 t "Requirements to take  ~a:" t read-line)
+
+(defparm class_name taken_course (member cs110 cs111) )
+;;(defparm class_name taken_course 
+;;(member cs110 cs111) 
+;;"Please enter the name of a course you have taken: " t)
 ;;(defparm prev-taken student list-of-classes "What CS courses has ~a taken? format: (cs-xxx)" read-line)
 
 
