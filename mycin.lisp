@@ -388,7 +388,7 @@
 (defun mycin ()
   "Determine what organism is infecting a patient."
   (emycin
-    (list (defcontext drinker  (name sex age)  ())
-          (defcontext culture  (site days-old) ())
-          (defcontext organism ()              (identity)))))
+    (list (defcontext drinker  (name age)  ())
+          (defcontext prefereces  (hoppy, malt, alc, wheat, flavored, dark) ())
+          (defcontext beer ()              (identity)))))
 
