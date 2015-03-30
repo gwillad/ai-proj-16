@@ -58,6 +58,13 @@
   then .75
      (identity beer is ESB))
 
+(defrule 7
+  if (hoppy beer is yes)
+     (malt beer is yes)
+     (alc beer is yes)
+  then .8
+     (identity beer is tripel))
+
 (defrule 5
   if (wheat beer is yes)
   then .8
