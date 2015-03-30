@@ -1,7 +1,23 @@
 (requires "mycin")
 
-(defparm name drinker t "Drinker's Name: " t read-line)
-(defparm age drinker number "Age: " t)
+(defvar string_list 
+("name" "Please enter your name" "We need to know your name to best provide a seemingly personal experience")
+("age" "How old are you?" "How old are you? (Keep in mind that the legal drinking age in the United States is 21 years old")
+("hoppy" "How much hoppiness do you prefer?" "Adam")
+("malt" "How much maltiness do you prefer?" "Adam")
+("alc" "How much alcohol do you prefer?" "Alcohol is the primary intoxicant in most libations. How much would you prefer to have in your beverage?")
+("wheat", "Do you like wheat beers?" "Adam")
+("flav", "what flavor do you like in your beers" "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry)")
+("dark" "Do you like dark beers?" "Adam")
+)
+
+(princ "welcome to the beer picker thing!")
+(terpri)
+(princ "would you like terse, normal, or verbose instructions?")
+(defvar wordiness (determine-wordiness (read-line)))
+
+(defparm name drinker t (nth wordiness (nth 0 string_list)) t read-line)
+(defparm age drinker number "Drinker's Age: " t)
 
 
 
