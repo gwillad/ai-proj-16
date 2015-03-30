@@ -4,20 +4,10 @@
 
 ;;;; File mycin.lisp: Chapter 16's implementation of MYCIN.
 ;;;; A sample rulebase is provided in "mycin-rules.lisp".
+
 (defconstant true   +1.0)
 (defconstant false  -1.0)
 (defconstant unknown 0.0)
-
-;; (defun mytypep (var typespec)
-;;   (if (equal typespec 'list-of-classes)
-;;       (check-list-of-classes var)
-;;     (typep var typespec)))
-
-;; (defun check-list-of-classes (var) 
-;;   (if (not var)
-;;       t
-;;     (and (not (null (get-db (car var))))
-;; 	 (check-list-of-classes (cdr var)))))
 
 (defun cf-or (a b)
   "Combine the certainty factors for the formula (A or B).
@@ -51,13 +41,7 @@
 (let ((db (make-hash-table :test #'equal)))
   (defun get-db (key) (gethash key db))
   (defun put-db (key val) (setf (gethash key db) val))
-  (defun clear-db () (clrhash db))
-(defun print-db () (princ db)))
-
-;;(let ((class-db (make-hash-table :test #'equal)))
-;;  (defun get-class-db (key) (gethash key db))
-;;  (defun put-class-db (key val) (setf (gethash key db) val))
-;;  (defun clear-class-db () (clrhash db)))
+  (defun clear-db () (clrhash db)))
 
 (defun get-vals (parm inst)
   "Return a list of (val cf) pairs for this (parm inst)."
@@ -248,18 +232,11 @@
       (parse-condition condition)
     (when find-out-p
       (find-out parm inst))
-;;      (find-out val inst)) call eval
     ;; Add up all the (val cf) pairs that satisfy the test
     (loop for pair in (get-vals parm inst)
-          when (funcall op (first pair) (eval-val val))
+          when (funcall op (first pair) val)
           sum (second pair))))
                
-(defun eval-val (val) 
-;; allows us to evaluate values for the 4th param of conditions
-  (if (not (listp val)) 
-      val
-    (eval val)))
-
 (defun reject-premise (premise)
   "A premise is rejected if it is known false, without
   needing to call find-out recursively."
@@ -272,10 +249,6 @@
     (update-cf parm inst val cf)))
 
 (defun is (a b) (equal a b))
-
-(defun fufills (prev-taken prereqs) 
-  ;; true iff prereqs is a subset of prev-take
-)
 
 (defun parse-condition (condition)
   "A condition is of the form (parm inst op val).
@@ -415,10 +388,7 @@
 (defun mycin ()
   "Determine what organism is infecting a patient."
   (emycin
-    (list
-
-     (defcontext student (name class-year)  ())
-     (defcontext taken_course (class_name)  ()) 	
-)))
-;;          (defcontext organism ()              (identity)))))
+    (list (defcontext drinker  (name sex age)  ())
+          (defcontext culture  (site days-old) ())
+          (defcontext organism ()              (identity)))))
 
