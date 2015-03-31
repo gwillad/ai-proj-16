@@ -254,6 +254,8 @@
 
 (defun is (a b) (equal a b))
 
+(defun isnot (a b) (not (equal a b)))
+
 (defun parse-condition (condition)
   "A condition is of the form (parm inst op val).
   So for (age patient is 21), we would return 4 values:

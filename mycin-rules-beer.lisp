@@ -29,16 +29,15 @@
 
 
 (defparm identity beer 
-  (member IPA pale-ale stout ESB 
-	  wheat-ale blueberry-ale tripel shirley-temple) 
+  (member IPA pale-ale stout ESB lager wheat-ale blueberry-ale tripel pumpkin-ale hard-cider shirley-temple) 
   "Enter the beer you want: " t)
 
-(defparm hoppy beer (member yes no dont-care) (nth wordiness (nth 2 string_list)) t)
-(defparm malt beer (member yes no dont-care) (nth wordiness (nth 3 string_list)) t)
-(defparm alc beer (member yes no dont-care) (nth wordiness (nth 4 string_list)) t)
-(defparm wheat beer (member yes no dont-care) (nth wordiness (nth 5 string_list)) t)
-(defparm flavored beer (member yes no dont-care) (nth wordiness (nth 6 string_list)) t)
-(defparm dark beer (member yes no dont-care) (nth wordiness (nth 7 string_list)) t)
+(defparm hoppy beer (member 0 1 2 3 4 5) (nth wordiness (nth 2 string_list)) t)
+(defparm malt beer (member 0 1 2 3 4 5) (nth wordiness (nth 3 string_list)) t)
+(defparm alc beer (member 0 1 2 3 4 5) (nth wordiness (nth 4 string_list)) t)
+(defparm wheat beer (member 0 1 2 3 4 5) (nth wordiness (nth 5 string_list)) t)
+(defparm flavored beer (member blueberry pumpkin apple) (nth wordiness (nth 6 string_list)) t)
+(defparm dark beer (member 0 1 2 3 4 5) (nth wordiness (nth 7 string_list)) t)
 
 (clear-rules)
 
@@ -48,60 +47,92 @@
      (identity beer is shirley-temple))
 
 (defrule 2
-  if (hoppy beer is yes)
+  if 
+     (hoppy beer > 3)
+     (alc beer > 2)
+     (alc beer < 5)
      (age drinker > 20)
-     (malt beer is no)
-     (alc beer is yes)
-     (dark beer is no) 
   then .75
      (identity beer is IPA))
 
-(defrule 2
-  if (hoppy beer is yes)
+(defrule 30
+  if 
+     (hoppy beer is 5)
+
+     ;; hoppy is 5 as well
+     (alc beer is (hoppy beer)) ;; Demonstration of imbedded case (not too useful for our
+                                ;; (not too useful for our system, but proof of completion!)
      (age drinker > 20)
-     (malt beer is no)
-     (alc beer is no)
-     (dark beer is no) 
+  then .99
+     (identity beer is IPA))
+
+
+(defrule 29
+  if (hoppy beer > 2)
+     (age drinker > 20)
+     (alc beer > 1)
   then .75
      (identity beer is pale-ale))
 
 (defrule 3
-  if (hoppy beer is no)
+  if
      (age drinker > 20)
-     (malt beer is yes)
-     (alc beer is yes)
-     (wheat beer is no)
-     (dark beer is yes)
-  then .8
+     (malt beer > 3)
+     (alc beer > 1)
+     (dark beer is 4)
+     
+  then .75
      (identity beer is stout))
 
-(defrule 4
-  if (hoppy beer is no)
+(defrule 30
+  if
      (age drinker > 20)
-     (malt beer is yes)
-     (alc beer is no)
-     (wheat beer is no)
-     (dark beer is no)
-  then .75
+     (malt beer >  3)
+     (alc beer > 1)
+     (dark beer is 5)
+  then .99
+     (identity beer is stout))
+
+(defrule 49
+  if 
+     (age drinker > 20)
+     (malt beer is 5)
+     (alc beer < 4)
+     (dark beer < 4)
+  then .80
      (identity beer is ESB))
 
 (defrule 7
-  if (hoppy beer is yes)
+  if (hoppy beer > 3)
      (age drinker > 20)
-     (malt beer is yes)
-     (alc beer is yes)
+     (malt beer > 3)
+     (alc beer is 5)
   then .8
      (identity beer is tripel))
 
 (defrule 5
-  if (wheat beer is yes)
+  if (wheat beer > 3)
   (age drinker > 20)
   then .8
      (identity beer is wheat-ale))
 
 (defrule 6 
   
-  if (flavored beer is yes)
+  if (flavored beer is blueberry)
        (age drinker > 20)
   then .8 
      (identity beer is blueberry-ale))
+
+(defrule 10
+  
+  if (flavored beer is pumpkin)
+       (age drinker > 20)
+  then .8 
+     (identity beer is pumpkin-ale))
+
+(defrule 11 
+  
+  if (flavored beer is apple)
+       (age drinker > 20)
+  then .8 
+     (identity beer is hard-cider))
