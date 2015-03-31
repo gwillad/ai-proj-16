@@ -225,6 +225,10 @@
              (cf-and cf-so-far
                      (eval-condition (first premises)))))))
 
+(defun helper-eval (value)
+  (if (listp value) (eval value) value)
+)
+
 (defun eval-condition (condition &optional (find-out-p t))
   "See if this condition is true, optionally using FIND-OUT
   to determine unknown parameters."
@@ -234,7 +238,7 @@
       (find-out parm inst))
     ;; Add up all the (val cf) pairs that satisfy the test
     (loop for pair in (get-vals parm inst)
-          when (funcall op (first pair) val)
+          when (funcall op (first pair) (helper-eval val)) ;; HERE IS WHERE I SCREWED UP
           sum (second pair))))
                
 (defun reject-premise (premise)
