@@ -1,14 +1,14 @@
 (requires "mycin")
 
 (defvar string_list '(
-("name" "Please enter your name" "We need to know your name to best provide a seemingly personal experience")
-("age" "How old are you?" "How old are you? (Keep in mind that the legal drinking age in the United States is 21 years old")
-("hoppy" "How much hoppiness do you prefer?" "Adam")
-("malt" "How much maltiness do you prefer?" "Adam")
-("alc" "How much alcohol do you prefer?" "Alcohol is the primary intoxicant in most libations. How much would you prefer to have in your beverage?")
-("wheat" "Do you like wheat beers?" "Adam")
-("flav" "what flavor do you like in your beers" "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry)")
-("dark" "Do you like dark beers?" "Adam")
+("name:" "Please enter your name:" "We need to know your name to best provide a seemingly personal experience:")
+("age:" "How old are you?" "How old are you? (Keep in mind that the legal drinking age in the United States is 21 years old)")
+("hoppy:" "How much hoppiness do you prefer?" "Adam")
+("malt:" "How much maltiness do you prefer?" "Adam")
+("alc:" "How much alcohol do you prefer?" "Alcohol is the primary intoxicant in most libations. How much would you prefer to have in your beverage?")
+("wheat:" "Do you like wheat beers?" "Adam")
+("flav:" "what flavor do you like in your beers" "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry)")
+("dark:" "Do you like dark beers?" "Adam")
 ))
 
 (defun determine-wordiness (input)
@@ -30,7 +30,7 @@
 
 (defparm identity beer 
   (member IPA pale-ale stout ESB 
-	  wheat-ale blueberry-ale tripel soda) 
+	  wheat-ale blueberry-ale tripel shirley-temple) 
   "Enter the beer you want: " t)
 
 (defparm hoppy beer (member yes no dont-care) (nth wordiness (nth 2 string_list)) t)
@@ -43,12 +43,13 @@
 (clear-rules)
 
 (defrule 1
-  if (age drinker is 15)
+  if (age drinker < 21)
   then .999
-     (identity beer is soda))
+     (identity beer is shirley-temple))
 
 (defrule 2
   if (hoppy beer is yes)
+     (age drinker > 20)
      (malt beer is no)
      (alc beer is yes)
      (dark beer is no) 
@@ -57,6 +58,7 @@
 
 (defrule 2
   if (hoppy beer is yes)
+     (age drinker > 20)
      (malt beer is no)
      (alc beer is no)
      (dark beer is no) 
@@ -65,6 +67,7 @@
 
 (defrule 3
   if (hoppy beer is no)
+     (age drinker > 20)
      (malt beer is yes)
      (alc beer is yes)
      (wheat beer is no)
@@ -74,6 +77,7 @@
 
 (defrule 4
   if (hoppy beer is no)
+     (age drinker > 20)
      (malt beer is yes)
      (alc beer is no)
      (wheat beer is no)
@@ -83,6 +87,7 @@
 
 (defrule 7
   if (hoppy beer is yes)
+     (age drinker > 20)
      (malt beer is yes)
      (alc beer is yes)
   then .8
@@ -90,10 +95,13 @@
 
 (defrule 5
   if (wheat beer is yes)
+  (age drinker > 20)
   then .8
      (identity beer is wheat-ale))
 
 (defrule 6 
+  
   if (flavored beer is yes)
+       (age drinker > 20)
   then .8 
      (identity beer is blueberry-ale))
