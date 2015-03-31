@@ -95,7 +95,7 @@
   "Print the prompt for this parameter (or make one up) and
   read the reply."
   (fresh-line)
-  (format t (parm-prompt (get-parm parm)) (inst-name inst) parm)
+  (format t (eval (parm-prompt (get-parm parm))) (inst-name inst) parm)
   (princ " ")
   (finish-output)
   (funcall (parm-reader (get-parm parm))))
