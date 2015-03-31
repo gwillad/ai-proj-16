@@ -7,7 +7,7 @@
 ("malt: " "How much maltiness do you prefer? " "Malted barley gives beer is color, and sweet, chocolate, coffee or caramel flavors. Darker roasted malts contribute to darker beers. How much do you like these flavors? ")
 ("alc: " "How much alcohol do you prefer? " "Alcohol is the primary intoxicant in most libations. How much would you prefer in your beverage? ")
 ("wheat: " "Do you like wheat beers? " "Wheat and other grains are sometimes added in the brewing process to add hearty, earthy and bready flavors to beer. How much do you like these flavors? ")
-("flav: " "what flavor do you like in your beers " "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry, vanilla, pumpkin, &c) ")
+("flav: " "what flavor do you like in your beers " "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry, pumpkin, apple &c) ")
 ("dark: " "Do you like dark beers? " "Dark beers, which get there color from longer roasted malt barley, tend to have stronger chocolate, coffee and caramel flavors. ")
 ))
 
