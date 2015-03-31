@@ -33,9 +33,9 @@
    ((equal input "terse") 0)
    (t 1)))
 
-(princ "welcome to the beer picker thing!")
+(princ "welcome to the beer picker thing! ")
 (terpri)
-(princ "would you like terse, normal, or verbose instructions?")
+(princ "would you like terse, normal, or verbose instructions? ")
 (defvar wordiness (determine-wordiness (read-line)))
 
 (defparm name drinker t (nth wordiness (nth 0 string_list)) t read-line)
@@ -51,7 +51,7 @@
 (defparm malt beer (member 0 1 2 3 4 5) (nth wordiness (nth 3 string_list)) t)
 (defparm alc beer (member 0 1 2 3 4 5) (nth wordiness (nth 4 string_list)) t)
 (defparm wheat beer (member 0 1 2 3 4 5) (nth wordiness (nth 5 string_list)) t)
-(defparm flavored beer (member blueberry pumpkin apple) (nth wordiness (nth 6 string_list)) t)
+(defparm flavored beer (member blueberry pumpkin apple none) (nth wordiness (nth 6 string_list)) t)
 (defparm dark beer (member 0 1 2 3 4 5) (nth wordiness (nth 7 string_list)) t)
 
 (clear-rules)
