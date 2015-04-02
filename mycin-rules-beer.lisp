@@ -131,7 +131,7 @@
 (defrule 30
   if 
      (hoppy beer is 5)
-     (alc beer is (hoppy beer)) ;; Demonstration of imbedded case (not too useful for our
+     (alc beer is (hoppy beer)) ;; Demonstration of embedded case
      (age drinker > 20)
   then .99
      (identity beer is IPA))
