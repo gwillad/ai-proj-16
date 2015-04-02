@@ -226,38 +226,20 @@
                      (eval-condition (first premises)))))))
 
 (defun helper-eval (value)
-  (if (listp value)
-      (let* ((parm (first value))
-	    (inst (second value))
-	    (vals (get-vals parm inst)))
-	(if (not vals)
-	    (progn 
-	      (find-out parm inst)
-	      (caar (get-vals parm inst)))
-	  (caar vals)))))
-;;  (if (listp value) 
-  ;;    (let ((vals (get-vals (car value) (cadr value))))
-;;	(if (not vals) 
-;;	    nil
-;;	  (caar vals)))))
+  (if (listp value) (eval value) value)
+)
 
 (defun eval-condition (condition &optional (find-out-p t))
   "See if this condition is true, optionally using FIND-OUT
   to determine unknown parameters."
   (multiple-value-bind (parm inst op val)
       (parse-condition condition)
-    (when find-out-p 
+    (when find-out-p
       (find-out parm inst))
-      ;;(if (listp val)
-	  
-	;;  (find-out (car val) (cadr val))))
     ;; Add up all the (val cf) pairs that satisfy the test
-    ;;(princ parm) (terpri) (princ inst)
-    ;;(princ (get-vals parm inst))
-    ;;(terpri)    (terpri)
     (loop for pair in (get-vals parm inst)
-	  when (funcall op (first pair) (helper-eval val)) ;; helper eval here is wrong
-	  sum (second pair))))
+          when (funcall op (first pair) (helper-eval val)) ;; HERE IS WHERE I SCREWED UP
+          sum (second pair))))
                
 (defun reject-premise (premise)
   "A premise is rejected if it is known false, without
@@ -273,10 +255,6 @@
 (defun is (a b) (equal a b))
 
 (defun isnot (a b) (not (equal a b)))
-
-;;(defun hoppy-of (beer)
-;;  (princ (get-db beer))
-;;)
 
 (defun parse-condition (condition)
   "A condition is of the form (parm inst op val).
@@ -418,4 +396,3 @@
   (emycin
     (list (defcontext drinker  (name age)  ())
           (defcontext beer ()              (identity)))))
-

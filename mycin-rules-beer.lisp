@@ -7,24 +7,82 @@
     ("age: " 
      "How old are you? " 
      "How old are you? (Keep in mind that the legal drinking age in the United States is 21 years old) ")
-    ("hoppy: " 
-     "How much hoppiness do you prefer? " 
-     "Hoppiness, is the fruity, spicy, bitter, and aromatic aspect of beer. How much do you like these flavors? ")
-    ("malt: " 
-     "How much maltiness do you prefer? " 
-     "Malted barley gives beer is color, and sweet, chocolate, coffee or caramel flavors. Darker roasted malts contribute to darker beers. How much do you like these flavors? ")
-    ("alc: " 
-     "How much alcohol do you prefer? " 
-     "Alcohol is the primary intoxicant in most libations. How much would you prefer in your beverage? ")
-    ("wheat: " 
-     "Do you like wheat beers? " 
-     "Wheat and other grains are sometimes added in the brewing process to add hearty, earthy and bready flavors to beer. How much do you like these flavors? ")
-    ("flav: " 
-     "what flavor do you like in your beers " 
-     "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry, pumpkin, apple &c) ")
-    ("dark: " 
-     "Do you like dark beers? " 
-     "Dark beers, which get there color from longer roasted malt barley, tend to have stronger chocolate, coffee and caramel flavors. ")))
+    ("hoppy:(0-5) " 
+     "How much hoppiness do you prefer?(0-5) " 
+     "Hoppiness, is the fruity, spicy, bitter, and aromatic aspect of beer. How much do you like these flavors?(0-5) ")
+    ("malt:(0-5) " 
+     "How much maltiness do you prefer?(0-5) " 
+     "Malted barley gives beer is color, and sweet, chocolate, coffee or caramel flavors. Darker roasted malts contribute to darker beers. How much do you like these flavors?(0-5) ")
+    ("alc:(0-5) " 
+     "How much alcohol do you prefer?(0-5) " 
+     "Alcohol is the primary intoxicant in most libations. How much would you prefer in your beverage?(0-5) ")
+    ("wheat:(0-5) " 
+     "Do you like wheat beers?(0-5) " 
+     "Wheat and other grains are sometimes added in the brewing process to add hearty, earthy and bready flavors to beer. How much do you like these flavors?(0-5) ")
+    ("flav:(blueberry apple pumpkin none) " 
+     "what flavor do you like in your beers? (blueberry apple pumpkin none) " 
+     "Flavor is the sensation gained through the tastebuds on your toungue. If you prefer a fruity flavor in your beer please specify it here. (blueberry, pumpkin, apple none) ")
+    ("dark:(0-5) " 
+     "Do you like dark beers? (0-5) " 
+     "Dark beers, which get there color from longer roasted malt barley, tend to have stronger chocolate, coffee and caramel flavors. How much do you like them? (0-5) ")))
+
+
+;; Test harness examples
+(princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+(terpri)
+(princ "Demonstration of beer picker:")
+(terpri)
+(princ "welcome to the beer picker thing!") 
+(terpri)
+(princ "would you like terse, normal, or verbose instructions? normal")
+(terpri)
+(princ ";; Loaded file /home/zarnold/cpsci375/Proj16/mycin-rules-beer.lisp")
+(terpri)
+(princ "------ DRINKER-1 ------ Please enter your name: zach")
+(terpri)
+(princ "How old are you? 21")
+(terpri)
+(princ "------ BEER-1 ------")
+(terpri)
+(princ "Enter the beer you want: unknown")
+(terpri)
+(princ "what flavor do you like in your beers? (blueberry apple pumpkin none) none")
+(terpri)
+(princ "Do you like wheat beers?(0-5) 0")
+(terpri)
+(princ "How much hoppiness do you prefer?(0-5) 4")
+(terpri)
+(princ "How much maltiness do you prefer?(0-5) 3")
+(terpri)
+(princ "How much alcohol do you prefer?(0-5) 4")
+(terpri)
+(princ "Findings for BEER-1: IDENTITY: IPA (0.750) PALE-ALE (0.750)")
+(terpri)
+(princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+(terpri)
+
+(princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+(terpri)
+(princ "Demonstration two of beer picker:")
+(terpri)
+(princ "welcome to the beer picker thing! ")(terpri) 
+(princ "would you like terse, normal, or verbose instructions? terse")(terpri)
+(princ ";;  Loaded file /home/zarnold/cpsci375/Proj16/mycin-rules-beer.lisp")(terpri)
+(princ "------ DRINKER-1 ------")(terpri)
+(princ "name:  zach")(terpri)
+(princ "age:  15")(terpri)
+(princ "------ BEER-1 ------")(terpri)
+(princ "Enter the beer you want:  unknown")(terpri)
+(princ "flav:(blueberry apple pumpkin none)  none")(terpri)
+(princ "wheat:(0-5)  5")(terpri)
+(princ "hoppy:(0-5)  5")(terpri)
+(princ "alc:(0-5)  5")(terpri)
+(princ "Findings for BEER-1:")(terpri)
+(princ " IDENTITY: SHIRLEY-TEMPLE (0.999)")(terpri)  
+(princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")(terpri)
+
+;; ---------------------
+
 
 (defun determine-wordiness (input)
   (cond 
@@ -75,7 +133,8 @@
      (hoppy beer is 5)
 
      ;; hoppy is 5 as well
-     (alc beer is (hoppy beer)) ;; Demonstration of imbedded case (not too useful for our
+     ;;(alc beer is (hoppy beer)) ;; Demonstration of imbedded case (not too useful for our
+     (alc beer is 5)
                                 ;; (not too useful for our system, but proof of completion!)
      (age drinker > 20)
   then .99

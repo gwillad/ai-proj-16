@@ -1,0 +1,15 @@
+Here is are samples of our expert system in action
+
+welcome to the beer picker thing! 
+would you like terse, normal, or verbose instructions? normal 
+;; Loaded file /home/zarnold/cpsci375/Proj16/mycin-rules-beer.lisp 
+------ DRINKER-1 ------ Please enter your name: zach 
+How old are you? 21 
+------ BEER-1 ------ 
+Enter the beer you want: unknown 
+what flavor do you like in your beers? (blueberry apple pumpkin none) none 
+Do you like wheat beers?(0-5) 0 
+How much hoppiness do you prefer?(0-5) 4 
+How much maltiness do you prefer?(0-5) 3 
+How much alcohol do you prefer?(0-5) 4 
+Findings for BEER-1: IDENTITY: IPA (0.750) PALE-ALE (0.750)
