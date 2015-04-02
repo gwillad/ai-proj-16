@@ -226,7 +226,12 @@
                      (eval-condition (first premises)))))))
 
 (defun helper-eval (value)
-  (if (listp value) (eval value) value)
+  ;; tests to see if value is an embedded condition. if so,
+  ;; gets the value of it
+  ;; otherwise returns the original value
+  (if (listp value) 
+      (caar (get-vals (car value) (get-db (second value)))) 
+    value)
 )
 
 (defun eval-condition (condition &optional (find-out-p t))
@@ -238,7 +243,9 @@
       (find-out parm inst))
     ;; Add up all the (val cf) pairs that satisfy the test
     (loop for pair in (get-vals parm inst)
-          when (funcall op (first pair) (helper-eval val)) ;; HERE IS WHERE I SCREWED UP
+	  ;; this now calls helper-eval, which evaluates the conitional
+	  ;; but only if its an embedded conditional
+          when (funcall op (first pair) (helper-eval val)) 
           sum (second pair))))
                
 (defun reject-premise (premise)
