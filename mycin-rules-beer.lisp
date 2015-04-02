@@ -81,6 +81,25 @@
 (princ " IDENTITY: SHIRLEY-TEMPLE (0.999)")(terpri)  
 (princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")(terpri)
 
+(princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")(terpri)
+(princ "Demonstration of imbedded case and mutually exclusive IPA rules:")(terpri)
+(princ "welcome to the beer picker thing!")(terpri)
+(princ "would you like terse, normal, or verbose instructions? normal")(terpri)
+(princ ";;  Loaded file /home/zarnold/cpsci375/Proj16/mycin-rules-beer.lisp")(terpri)
+(princ "------ DRINKER-1 ------")(terpri)
+(princ "Please enter your name:  zach")(terpri)
+(princ "How old are you?  21")(terpri)
+(princ "------ BEER-1 ------")(terpri)
+(princ "'Enter the beer you want:  unknown")(terpri)
+(princ "what flavor do you like in your beers? (blueberry apple pumpkin none)  none")(terpri)
+(princ "Do you like wheat beers?(0-5)  0")(terpri)
+(princ "How much alcohol do you prefer?(0-5) ")(format t "~c[31m5~c[0m~%" #\ESC #\ESC)(terpri)
+(princ "How much hoppiness do you prefer?(0-5) ")(format t "~c[31m5~c[0m~%" #\ESC #\ESC)(terpri)
+(princ "How much maltiness do you prefer?(0-5)  3")(terpri)
+(princ "Findings for BEER-1:")(terpri)
+ (princ "IDENTITY: ")(format t "~c[31mIPA (0.990)~c[0m~%" #\ESC #\ESC)(princ " PALE-ALE (0.750)")(terpri)  
+(princ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")(terpri)
+
 ;; ---------------------
 
 
@@ -102,7 +121,7 @@
 
 
 (defparm identity beer 
-  (member IPA pale-ale stout ESB lager wheat-ale blueberry-ale tripel pumpkin-ale hard-cider shirley-temple) 
+  (member IPA pale-ale stout ESB american-lager wheat-ale blueberry-ale tripel pumpkin-ale hard-cider shirley-temple) 
   "Enter the beer you want: " t)
 
 (defparm hoppy beer (member 0 1 2 3 4 5) (nth wordiness (nth 2 string_list)) t)
@@ -131,6 +150,7 @@
 (defrule 30
   if 
      (hoppy beer is 5)
+     ;; wnat alcohol to be 5 as well
      (alc beer is (hoppy beer)) ;; Demonstration of embedded case
      (age drinker > 20)
   then .99
@@ -184,6 +204,17 @@
   (age drinker > 20)
   then .8
      (identity beer is wheat-ale))
+
+(defrule 500
+  if (wheat beer < 3)
+  (age drinker > 20)
+  (alc beer < 3)
+  (hoppy beer < 3)
+  (malt beer < 3)
+  (dark beer < 3)
+  (flavored beer is none)
+  then .8
+  (identity beer is american-lager))
 
 (defrule 6 
   
